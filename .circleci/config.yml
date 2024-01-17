@@ -3,14 +3,12 @@
 version: 2.1
 orbs:
   node: circleci/node@5
-  browser-tools: circleci/browser-tools@1.4.6
 jobs:
   test:
     docker:
-      - image: cimg/node:lts-browsers
+      - image: testcafe/testcafe:latest
     steps:
       - checkout
-      - browser-tools/install-browser-tools
       - node/install-packages
       - run:
           command: npm run test-ci
