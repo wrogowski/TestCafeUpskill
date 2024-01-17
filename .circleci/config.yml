@@ -1,0 +1,21 @@
+# This config was automatically generated from your source code
+# Stacks detected: deps:node:.
+version: 2.1
+orbs:
+  node: circleci/node@5
+jobs:
+  test:
+    docker:
+      - image: testcafe/testcafe:latest
+    parallelism: 2
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: npm run test-ci
+      - store_test_results:
+          path: /tmp/test-results
+workflows:
+  e2e-test:
+    jobs:
+      - test

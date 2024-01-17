@@ -3,7 +3,7 @@ const { Selector } = require('testcafe');
 module.exports = {
   baseURL: 'https://demo.nopcommerce.com/',
   browsers: 'chrome',
-  src: ["definitions.d.ts", 'test/*.test.ts', 'test/*.test.js'],
+  src: 'test/*.test.ts',
   concurrency: 1,
 
   screenshots: {
