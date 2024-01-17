@@ -1,0 +1,24 @@
+{
+  "name": "testcafe-tutorial",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "odzio",
+  "license": "ISC",
+  "description": "TestCafe upskill project",
+  "scripts": {
+    "test": "testcafe chrome -L",
+    "test:debug": "testcafe chrome -L --debug-on-fail",
+    "test:percy": "percy exec -- testcafe firefox -L"
+  },
+  "dependencies": {
+    "@percy/testcafe": "^1.0.4"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "cucumber": "^6.0.7",
+    "eslint": "^8.56.0",
+    "eslint-plugin-testcafe": "^0.2.1",
+    "testcafe": "^3.5.0",
+    "testcafe-reporter-xunit": "^2.2.3"
+  }
+}
