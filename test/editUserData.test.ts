@@ -10,7 +10,7 @@ let customerInfoPage: CustomerInfoPage;
 fixture("Created user is able to login and edit his data")
   .beforeEach(async t => {
     customerInfoPage = new CustomerInfoPage(t);
-    await t.useRole(primaryUserRole);
+    await t.useRole(primaryUserRole).maximizeWindow();
   })
   .afterEach(async t => t.useRole(Role.anonymous()))
   .page(registerPage.url)

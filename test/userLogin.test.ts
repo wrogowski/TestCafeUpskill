@@ -12,7 +12,8 @@ const registerPage = new RegisterPage();
 let validCredentials: { login: string, password: string };
 
 fixture("Login page tests")
-  .page(registerPage.url);
+  .page(registerPage.url)
+  .beforeEach(async t => await t.maximizeWindow());
 
 test.before(async t => {
   const token: string = await registerPage.verificationToken.getAttribute('value') || '';
@@ -42,7 +43,7 @@ test("Create user, navigate to login page and login", async (t) => {
     .navigateTo(loginPage.url)
     .expect(loginPage.notificationBar(await userUtils.getFullName(primaryUser)).exists).ok();
 
-  loginPage.loginWithCredentials(secondaryUserCredentials.login, secondaryUserCredentials.password);
+  await loginPage.loginWithCredentials(secondaryUserCredentials.login, secondaryUserCredentials.password);
   await t.expect(getPageUrl()).eql(homePage.url)
     .navigateTo(loginPage.url)
     .expect(loginPage.notificationBar(await userUtils.getFullName(secondaryUser)).exists).ok();

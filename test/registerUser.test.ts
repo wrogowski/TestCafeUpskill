@@ -13,7 +13,10 @@ const registerPage = new RegisterPage();
 const restultPage = new RegisterResultPage();
 const logger = RequestLogger();
 
-fixture('User registartion form tests').page(registerPage.url);
+fixture('User registartion form tests')
+  .page(registerPage.url)
+  .beforeEach(async t => await t.maximizeWindow());
+
 test.page(homePage.url).requestHooks(logger)(
   'Open user registartion page using top naviation bar',
   async t => {
