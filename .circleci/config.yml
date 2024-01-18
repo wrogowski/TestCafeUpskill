@@ -12,7 +12,13 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          command: npm run test-ci
+          name: Install Percy CLI
+          command: npm install --save-dev @percy/cli
+      - run:
+          name: Install dependencies and run tests
+          command: |
+            npm install
+            npm run test:ci:percy
       - store_test_results:
           path: /tmp/test-results
 workflows:
