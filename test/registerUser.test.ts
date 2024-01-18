@@ -17,35 +17,29 @@ fixture('User registartion form tests')
   .page(registerPage.url)
   .beforeEach(async t => await t.maximizeWindow());
 
-test.page(homePage.url).requestHooks(logger)(
-  'Open user registartion page using top naviation bar',
-  async t => {
-    await openPageUsingTopNavbar('Register');
+test.page(homePage.url).requestHooks(logger)('Open user registartion page using top naviation bar', async t => {
+  await openPageUsingTopNavbar('Register');
 
-    await t
-      .expect(logger.requests[0].request.url)
-      .eql(homePage.url)
-      .expect(registerPage.header.exists)
-      .ok()
-      .expect(getPageUrl())
-      .eql(registerPage.url);
-  }
-);
+  await t
+    .expect(logger.requests[0].request.url)
+    .eql(homePage.url)
+    .expect(registerPage.header.exists)
+    .ok()
+    .expect(getPageUrl())
+    .eql(registerPage.url);
+});
 
-test.page(loginPage.url).requestHooks(logger)(
-  'Open user registartion page from a login page',
-  async t => {
-    await t.click(loginPage.registerButton);
+test.page(loginPage.url).requestHooks(logger)('Open user registartion page from a login page', async t => {
+  await t.click(loginPage.registerButton);
 
-    await t
-      .expect(logger.requests[0].request.url)
-      .eql(loginPage.url)
-      .expect(registerPage.header.exists)
-      .ok()
-      .expect(registerPage.url)
-      .contains(await getPageUrl());
-  }
-);
+  await t
+    .expect(logger.requests[0].request.url)
+    .eql(loginPage.url)
+    .expect(registerPage.header.exists)
+    .ok()
+    .expect(registerPage.url)
+    .contains(await getPageUrl());
+});
 
 test('it is impossible to register user without providing required data', async t => {
   await registerPage.clickRegisterButton();
@@ -179,8 +173,7 @@ test('Email address has to be unique', async t => {
   registerPage.clickRegisterButton();
   await t.expect(restultPage.resultMessage.innerText).eql('Your registration completed');
 
-  await t.navigateTo(registerPage.url)
-    .typeText(registerPage.emailInput, usedEmail);
+  await t.navigateTo(registerPage.url).typeText(registerPage.emailInput, usedEmail);
 
   registerPage.setUserFullName(primaryUser.firstName + 'rand', primaryUser.lastName);
   registerPage.setPassword(primaryUser.password);
