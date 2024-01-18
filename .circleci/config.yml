@@ -13,7 +13,7 @@ jobs:
       - node/install-packages
       - run:
           name: Set Chromium Path
-          command: export PERCY_BROWSER_PATH=$(npm bin)/chromium
+          command: export PERCY_BROWSER_PATH=./project/node_modules/@percy/core/.local-chromium/929511/chrome-linux/chrome
       - run:
           name: Install dependencies and run tests
           command: |
