@@ -10,7 +10,7 @@
     "test:debug": "testcafe chrome -L --debug-on-fail",
     "test:percy": "percy exec -- testcafe firefox -L",
     "test:ci": "testcafe chromium:headless, firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml --concurrency 3",
-    "test:ci:percy": "percy exec --  testcafe chromium:headless, firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml"
+    "test:ci:percy": "percy exec --  testcafe firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml"
   },
   "dependencies": {
     "@percy/testcafe": "^1.0.4"
