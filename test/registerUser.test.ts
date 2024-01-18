@@ -48,6 +48,7 @@ test('it is impossible to register user without providing required data', async 
     async inputName => await t.expect(registerPage.inputErrorClass(inputName).exists).ok()
   );
   await t.expect(getPageUrl()).eql(registerPage.url);
+  await percySnapshot(t, 'Registration page mandatory fields errors');
 });
 
 test('Email input validation', async t => {
@@ -143,6 +144,23 @@ test('Password confirmation has to match the password input content', async t =>
     .eql('The password and confirmation password do not match.');
 });
 
+test('Email address has to be unique', async t => {
+  const usedEmail = await registerPage.setUserEmail(primaryUser.email);
+
+  registerPage.setUserFullName(primaryUser.firstName, primaryUser.lastName);
+  registerPage.setPassword(primaryUser.password);
+  registerPage.clickRegisterButton();
+  await t.expect(restultPage.resultMessage.innerText).eql('Your registration completed');
+
+  await t.navigateTo(registerPage.url).typeText(registerPage.emailInput, usedEmail);
+
+  registerPage.setUserFullName(primaryUser.firstName + 'rand', primaryUser.lastName);
+  registerPage.setPassword(primaryUser.password);
+
+  registerPage.clickRegisterButton();
+  await t.expect(registerPage.existingEmailValidationError.exists).ok();
+});
+
 test.requestHooks(logger)('User with correct data provided is created correctly', async t => {
   registerPage.setGender(primaryUser.gender);
   registerPage.setUserFullName(primaryUser.firstName, primaryUser.lastName);
@@ -163,21 +181,4 @@ test.requestHooks(logger)('User with correct data provided is created correctly'
 
   restultPage.clickContinueButton();
   await t.expect(getPageUrl()).eql(homePage.url);
-});
-
-test('Email address has to be unique', async t => {
-  const usedEmail = await registerPage.setUserEmail(primaryUser.email);
-
-  registerPage.setUserFullName(primaryUser.firstName, primaryUser.lastName);
-  registerPage.setPassword(primaryUser.password);
-  registerPage.clickRegisterButton();
-  await t.expect(restultPage.resultMessage.innerText).eql('Your registration completed');
-
-  await t.navigateTo(registerPage.url).typeText(registerPage.emailInput, usedEmail);
-
-  registerPage.setUserFullName(primaryUser.firstName + 'rand', primaryUser.lastName);
-  registerPage.setPassword(primaryUser.password);
-
-  registerPage.clickRegisterButton();
-  await t.expect(registerPage.existingEmailValidationError.exists).ok();
 });

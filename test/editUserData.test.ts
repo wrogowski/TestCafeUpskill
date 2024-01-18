@@ -3,6 +3,7 @@ import CustomerInfoPage from '../pages/customerInfoPage';
 import topNavbar from '../pages/components/topNavbar';
 import { primaryUserRole, secondaryUser } from '../helpers/users';
 import { Role } from 'testcafe';
+import percySnapshot from '@percy/testcafe';
 
 const registerPage = new RegisterPage();
 let customerInfoPage: CustomerInfoPage;
@@ -35,4 +36,6 @@ test('Change primaryUser data to secondaryUser', async t => {
     .contains(secondaryUser.email)
     .expect(customerInfoPage.companyNameInput.value)
     .eql(secondaryUser.companyName);
+
+  await percySnapshot(t, 'Edit user data page with secondary user data');
 });

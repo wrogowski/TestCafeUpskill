@@ -35,7 +35,7 @@ test.before(async () => {
     .eql(loginPage.url);
 });
 
-test('Create user, navigate to login page and login', async t => {
+test('It is possible to change user account during the session', async t => {
   const primaryUserCredentials = await registerPage.createUser(primaryUser);
   const secondaryUserCredentials = await registerPage.createUser(secondaryUser);
 
