@@ -12,8 +12,8 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          name: Install Percy CLI
-          command: npm install --save-dev @percy/cli
+          name: Set Chromium Path
+          command: export PERCY_BROWSER_PATH=$(npm bin)/chromium
       - run:
           name: Install dependencies and run tests
           command: |
