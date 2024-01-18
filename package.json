@@ -11,10 +11,14 @@
     "test:percy": "percy exec -- testcafe firefox -L",
     "test:ci": "testcafe chromium:headless, firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml --concurrency 3",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "test:ci:percy": "percy exec --  testcafe firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml"
 =======
     "test:ci:percy": "percy exec --  testcafe chromium:headless, firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml"
 >>>>>>> f7b5b11 (percy config setup)
+=======
+    "test:ci:percy": "percy exec --  testcafe firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml"
+>>>>>>> d2b75c3 (chromium browser removed from the percy pipeline)
   },
   "dependencies": {
     "@percy/testcafe": "^1.0.4"
