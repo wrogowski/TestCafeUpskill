@@ -12,8 +12,13 @@ jobs:
       - checkout
       - node/install-packages
       - run:
+<<<<<<< HEAD
           name: Set Chromium Path
           command: export PERCY_BROWSER_PATH=./project/node_modules/@percy/core/.local-chromium/929511/chrome-linux/chrome
+=======
+          name: Install Percy CLI
+          command: npm install --save-dev @percy/cli
+>>>>>>> f7b5b11 (percy config setup)
       - run:
           name: Install dependencies and run tests
           command: |
