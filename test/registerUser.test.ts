@@ -4,7 +4,6 @@ import RegisterPage from '../pages/registerPage';
 import RegisterResultPage from '../pages/registerResultPage';
 import { openPageUsingTopNavbar, getPageUrl } from '../page_methods/commonMethods';
 import { RequestLogger, test } from 'testcafe';
-import percySnapshot from '@percy/testcafe';
 import { primaryUser } from '../helpers/users';
 
 const homePage = new HomePage();
