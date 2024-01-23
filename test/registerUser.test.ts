@@ -17,6 +17,10 @@ fixture('User registartion form tests')
   .page(registerPage.url)
   .beforeEach(async t => await t.maximizeWindow());
 
+test.only('Percy test', async t => {
+  percySnapshot(t, 'dupa');
+});
+
 test.page(homePage.url).requestHooks(logger)('Open user registartion page using top naviation bar', async t => {
   await openPageUsingTopNavbar('Register');
 

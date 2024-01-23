@@ -8,24 +8,14 @@
   "scripts": {
     "test": "testcafe chrome -L",
     "test:debug": "testcafe chrome -L --debug-on-fail",
-    "test:percy": "percy exec -- testcafe firefox -L",
+    "test:percy": "percy exec -- testcafe firefox:headless",
     "test:ci": "testcafe chromium:headless, firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml --concurrency 3",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "test:ci:percy": "percy exec --  testcafe firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml"
-=======
-    "test:ci:percy": "percy exec --  testcafe chromium:headless, firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml"
->>>>>>> f7b5b11 (percy config setup)
-=======
-    "test:ci:percy": "percy exec --  testcafe firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml"
->>>>>>> d2b75c3 (chromium browser removed from the percy pipeline)
-  },
-  "dependencies": {
-    "@percy/testcafe": "^1.0.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
     "@percy/cli": "^1.27.7",
+    "@percy/testcafe": "^1.0.4",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "cucumber": "^6.0.7",
     "eslint": "^8.56.0",
