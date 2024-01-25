@@ -9,9 +9,7 @@ export const toCamelCase = (inputString: string) =>
 export const getPageUrl = () => ClientFunction(() => location.href)();
 
 export const selectOption = async (t: TestController, dropdownSelector: Selector, optionName: string) => {
-  await t
-    .click(dropdownSelector)
-    .click(dropdownSelector.find('option').withExactText(optionName));
+  await t.click(dropdownSelector).click(dropdownSelector.find('option').withExactText(optionName));
 };
 
 export const openPageUsingTopNavbar = async (pageName: string) => {
@@ -20,7 +18,7 @@ export const openPageUsingTopNavbar = async (pageName: string) => {
   await topNavbar.clickTopNavbarLink(pageName);
   switch (pageName) {
     case 'Register':
-      await t.expect(getPageUrl()).eql(registerPage.url);
+      await t.expect(getPageUrl()).eql(registerPage.url());
       break;
     case 'Log in':
       await t.expect(getPageUrl()).eql(loginPage.url);

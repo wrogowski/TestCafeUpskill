@@ -13,7 +13,7 @@ const restultPage = new RegisterResultPage();
 const logger = RequestLogger();
 
 fixture('User registartion form tests')
-  .page(registerPage.url)
+  .page(registerPage.url())
   .beforeEach(async t => await t.maximizeWindow());
 
 test.page(homePage.url).requestHooks(logger)('Open user registartion page using top naviation bar', async t => {
@@ -25,7 +25,7 @@ test.page(homePage.url).requestHooks(logger)('Open user registartion page using 
     .expect(registerPage.header.exists)
     .ok()
     .expect(getPageUrl())
-    .eql(registerPage.url);
+    .eql(registerPage.url());
 });
 
 test.page(loginPage.url).requestHooks(logger)('Open user registartion page from a login page', async t => {
@@ -36,7 +36,7 @@ test.page(loginPage.url).requestHooks(logger)('Open user registartion page from 
     .eql(loginPage.url)
     .expect(registerPage.header.exists)
     .ok()
-    .expect(registerPage.url)
+    .expect(registerPage.url())
     .contains(await getPageUrl());
 });
 
@@ -46,7 +46,7 @@ test('it is impossible to register user without providing required data', async 
   ['FirstName', 'LastName', 'Email', 'Password', 'ConfirmPassword'].forEach(
     async inputName => await t.expect(registerPage.inputErrorClass(inputName).exists).ok()
   );
-  await t.expect(getPageUrl()).eql(registerPage.url);
+  await t.expect(getPageUrl()).eql(registerPage.url());
 });
 
 test('Email input validation', async t => {
@@ -172,7 +172,7 @@ test('Email address has to be unique', async t => {
   registerPage.clickRegisterButton();
   await t.expect(restultPage.resultMessage.innerText).eql('Your registration completed');
 
-  await t.navigateTo(registerPage.url).typeText(registerPage.emailInput, usedEmail);
+  await t.navigateTo(registerPage.url()).typeText(registerPage.emailInput, usedEmail);
 
   registerPage.setUserFullName(primaryUser.firstName + 'rand', primaryUser.lastName);
   registerPage.setPassword(primaryUser.password);

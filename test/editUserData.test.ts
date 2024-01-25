@@ -13,7 +13,7 @@ fixture('Created user is able to login and edit his data')
     await t.useRole(primaryUserRole).maximizeWindow();
   })
   .afterEach(async t => t.useRole(Role.anonymous()))
-  .page(registerPage.url);
+  .page(registerPage.url());
 
 test('Change primaryUser data to secondaryUser', async t => {
   await topNavbar.clickTopNavbarLink('My account');

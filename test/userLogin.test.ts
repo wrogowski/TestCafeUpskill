@@ -12,7 +12,7 @@ const registerPage = new RegisterPage();
 let validCredentials: { login: string; password: string };
 
 fixture('Login page tests')
-  .page(registerPage.url)
+  .page(registerPage.url())
   .beforeEach(async t => await t.maximizeWindow());
 
 test.before(async () => {
