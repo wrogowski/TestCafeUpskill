@@ -1,15 +1,13 @@
 Feature: Register client tests
 
-  As a visitor I am able to craete a new account by the register page
+  As a visitor I am able to craete a new account on the register page
 
   Scenario: New user registration
     Given I open the regstration page
     When I select the "male" option from Gender radio buttons
-    When I provide the "First name" field with "Wlodek" value
-    When I provide the "Last name" field with "Ro" value
-    And I select "5" value from "Day of Birth" dropdown
-    And I select "January" value from "Month of Birth" dropdown
-    And I select "1999" value from "Year of Birth" dropdown
+    And I provide the "First name" field with "Wlodek" value
+    And I provide the "Last name" field with "Ro" value
+    And I set Date of Birth to "5" "January" "1999"
     And I provide the "Email" field with "asd@asd.as" value
     And I provide the "Password" field with "pass123" value
     And I provide the "Confirm password" field with "pass123" value

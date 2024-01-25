@@ -6,18 +6,16 @@
   "license": "ISC",
   "description": "TestCafe upskill project",
   "scripts": {
+    "cucumber": "cucumber-js",
     "test": "testcafe chrome -L",
     "test:debug": "testcafe chrome -L --debug-on-fail",
     "test:percy": "percy exec -- testcafe firefox -L",
     "test-ci": "testcafe chromium:headless, firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml --concurrency 3"
   },
-  "dependencies": {
-    "@cucumber/cucumber": "^10.3.1",
-    "@percy/testcafe": "^1.0.4",
-    "gherkin-testcafe": "^7.2.0"
-  },
   "devDependencies": {
+    "@cucumber/cucumber": "^10.3.1",
     "@faker-js/faker": "^8.3.1",
+    "@percy/testcafe": "^1.0.4",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -27,7 +25,9 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-testcafe": "^0.2.1",
+    "gherkin-testcafe": "^7.2.0",
     "testcafe": "^3.5.0",
+    "testcafe-cucumber-steps": "^1.21.0",
     "testcafe-reporter-xunit": "^2.2.3",
     "typescript": "^5.3.3"
   }
