@@ -34,10 +34,13 @@ class RegisterPage {
 
   setGender = async (gender: string) => await t.click(this.genderRadioButtons(gender));
 
+  setFirstName = async (firstName: string) => await t.typeText(this.firstNameInput, firstName, { paste: true });
+
+  setLastName = async (lastName: string) => await t.typeText(this.lastNameInput, lastName, { paste: true });
+
   setUserFullName = async (firstName: string, lastName: string) => {
-    await t
-      .typeText(this.firstNameInput, firstName, { paste: true })
-      .typeText(this.lastNameInput, lastName, { paste: true });
+    await this.setFirstName(firstName);
+    await this.setLastName(lastName);
   };
 
   setDateOfBirth = async ({ day, month, year }: { day: string; month: string; year: string }) => {
@@ -46,7 +49,7 @@ class RegisterPage {
     selectOption(t, this.selectBDayYear, year);
   };
 
-  setUserEmail = async (email: string) => {
+  setEmail = async (email: string) => {
     const randomPrefix = faker.string.alpha(10);
     const randomizedEmail = randomPrefix + '_' + email;
     await t
@@ -82,7 +85,7 @@ class RegisterPage {
     const credentials = { login: '', password: user.password };
 
     this.setUserFullName(user.firstName, user.lastName);
-    credentials.login = await this.setUserEmail(user.email);
+    credentials.login = await this.setEmail(user.email);
     this.setPassword(credentials.password);
 
     if (withFullData) {

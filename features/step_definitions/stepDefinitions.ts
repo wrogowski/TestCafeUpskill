@@ -21,7 +21,7 @@ When(/^I provide the "(.+)" field with "(.+)" value$/, async (t, [inputName, val
   }
 });
 
-When(/^I set Date of Birth to "(.+)" "(.+)" "(.+)"$/, async ([day, month, year]) => {
+When(/^I set Date of Birth to "(.+)" "(.+)" "(.+)"$/, async (t, [day, month, year]) => {
   await registerPage.setDateOfBirth({ day, month, year });
 });
 
@@ -31,6 +31,8 @@ When(/^I click the "Register" button$/, async () => {
 
 Then('registration confirmation page is opened', async () => await t.expect(getPageUrl()).eql(registerResultPage.url));
 
-Then('sucess message is displayed', async () => {
-  await t.expect(registerResultPage.resultMessage.innerText).eql('Gratz');
+Then('a sucess message is displayed', async () => {
+  const messageText = await registerResultPage.resultMessage.innerText;
+
+  await t.expect(messageText).eql('Your registration completed');
 });
