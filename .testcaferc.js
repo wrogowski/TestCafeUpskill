@@ -3,8 +3,19 @@ const { Selector } = require('testcafe');
 module.exports = {
   baseURL: 'https://demo.nopcommerce.com/',
   browsers: 'chrome',
-  src: 'test/*.test.ts',
+  src: [
+    'node_modules/testcafe-cucumber-steps/index.js',
+    'test/*.test.ts',
+    'features/*.feature',
+    'features/step_definitions/*.ts',
+  ],
   concurrency: 1,
+  skipJsErrors: true,
+  skipUncaughtErrors: true,
+  selectorTimeout: 3000,
+  assertionTimeout: 1000,
+  pageLoadTimeout: 1000,
+  disablePageCaching: true,
 
   screenshots: {
     path: './screenshots',

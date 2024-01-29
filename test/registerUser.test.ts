@@ -13,7 +13,7 @@ const restultPage = new RegisterResultPage();
 const logger = RequestLogger();
 
 fixture('User registartion form tests')
-  .page(registerPage.url)
+  .page(registerPage.url())
   .beforeEach(async t => await t.maximizeWindow());
 
 test.page(homePage.url).requestHooks(logger)('Open user registartion page using top naviation bar', async t => {
@@ -25,7 +25,7 @@ test.page(homePage.url).requestHooks(logger)('Open user registartion page using 
     .expect(registerPage.header.exists)
     .ok()
     .expect(getPageUrl())
-    .eql(registerPage.url);
+    .eql(registerPage.url());
 });
 
 test.page(loginPage.url).requestHooks(logger)('Open user registartion page from a login page', async t => {
@@ -36,7 +36,7 @@ test.page(loginPage.url).requestHooks(logger)('Open user registartion page from 
     .eql(loginPage.url)
     .expect(registerPage.header.exists)
     .ok()
-    .expect(registerPage.url)
+    .expect(registerPage.url())
     .contains(await getPageUrl());
 });
 
@@ -46,59 +46,59 @@ test('it is impossible to register user without providing required data', async 
   ['FirstName', 'LastName', 'Email', 'Password', 'ConfirmPassword'].forEach(
     async inputName => await t.expect(registerPage.inputErrorClass(inputName).exists).ok()
   );
-  await t.expect(getPageUrl()).eql(registerPage.url);
+  await t.expect(getPageUrl()).eql(registerPage.url());
 });
 
 test('Email input validation', async t => {
   registerPage.setUserFullName(primaryUser.firstName, primaryUser.lastName);
   registerPage.setPassword(primaryUser.password);
-  registerPage.setUserEmail('');
+  registerPage.setEmail('');
 
   registerPage.clickRegisterButton();
 
-  registerPage.setUserEmail('a@');
+  registerPage.setEmail('a@');
   await t
     .expect(registerPage.inputErrorClass('Email').exists)
     .ok()
     .expect(registerPage.inputErrorText('Email').innerText)
     .eql('Wrong email');
-  registerPage.setUserEmail(primaryUser.email);
+  registerPage.setEmail(primaryUser.email);
   await t.expect(registerPage.inputErrorClass('Email').exists).notOk();
 
-  registerPage.setUserEmail('@');
+  registerPage.setEmail('@');
   await t
     .expect(registerPage.inputErrorClass('Email').exists)
     .ok()
     .expect(registerPage.inputErrorText('Email').innerText)
     .eql('Wrong email');
-  registerPage.setUserEmail(primaryUser.email);
+  registerPage.setEmail(primaryUser.email);
   await t.expect(registerPage.inputErrorClass('Email').exists).notOk();
 
-  registerPage.setUserEmail('a@a.');
+  registerPage.setEmail('a@a.');
   await t
     .expect(registerPage.inputErrorClass('Email').exists)
     .ok()
     .expect(registerPage.inputErrorText('Email').innerText)
     .eql('Wrong email');
-  registerPage.setUserEmail(primaryUser.email);
+  registerPage.setEmail(primaryUser.email);
   await t.expect(registerPage.inputErrorClass('Email').exists).notOk();
 
-  registerPage.setUserEmail('test@@test.test');
+  registerPage.setEmail('test@@test.test');
   await t
     .expect(registerPage.inputErrorClass('Email').exists)
     .ok()
     .expect(registerPage.inputErrorText('Email').innerText)
     .eql('Wrong email');
-  registerPage.setUserEmail(primaryUser.email);
+  registerPage.setEmail(primaryUser.email);
   await t.expect(registerPage.inputErrorClass('Email').exists).notOk();
 
-  registerPage.setUserEmail('a@a.a.');
+  registerPage.setEmail('a@a.a.');
   await t
     .expect(registerPage.inputErrorClass('Email').exists)
     .ok()
     .expect(registerPage.inputErrorText('Email').innerText)
     .eql('Wrong email');
-  registerPage.setUserEmail(primaryUser.email);
+  registerPage.setEmail(primaryUser.email);
   await t.expect(registerPage.inputErrorClass('Email').exists).notOk();
 });
 
@@ -113,9 +113,9 @@ test('Password minimum length validation', async t => {
     .notOk();
 });
 
-test('Empty string is not a correct password', async t => {
+test.only('Empty string is not a correct password', async t => {
   registerPage.setUserFullName(primaryUser.firstName, primaryUser.lastName);
-  registerPage.setUserEmail(primaryUser.email);
+  registerPage.setEmail(primaryUser.email);
 
   registerPage.setPassword('      ');
   registerPage.clickRegisterButton();
@@ -146,7 +146,7 @@ test.requestHooks(logger)('User with correct data provided is created correctly'
   registerPage.setGender(primaryUser.gender);
   registerPage.setUserFullName(primaryUser.firstName, primaryUser.lastName);
   registerPage.setDateOfBirth(primaryUser.dateOfBirth);
-  registerPage.setUserEmail(primaryUser.email);
+  registerPage.setEmail(primaryUser.email);
   registerPage.setCompanyName(primaryUser.companyName);
   registerPage.newsletterChecbox(false);
   registerPage.setPassword(primaryUser.password);
@@ -164,15 +164,15 @@ test.requestHooks(logger)('User with correct data provided is created correctly'
   await t.expect(getPageUrl()).eql(homePage.url);
 });
 
-test('Email address has to be unique', async t => {
-  const usedEmail = await registerPage.setUserEmail(primaryUser.email);
+test.only('Email address has to be unique', async t => {
+  const usedEmail = await registerPage.setEmail(primaryUser.email);
 
   registerPage.setUserFullName(primaryUser.firstName, primaryUser.lastName);
   registerPage.setPassword(primaryUser.password);
   registerPage.clickRegisterButton();
   await t.expect(restultPage.resultMessage.innerText).eql('Your registration completed');
 
-  await t.navigateTo(registerPage.url).typeText(registerPage.emailInput, usedEmail);
+  await t.navigateTo(registerPage.url()).typeText(registerPage.emailInput, usedEmail);
 
   registerPage.setUserFullName(primaryUser.firstName + 'rand', primaryUser.lastName);
   registerPage.setPassword(primaryUser.password);

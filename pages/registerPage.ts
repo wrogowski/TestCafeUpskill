@@ -4,7 +4,8 @@ import { selectOption } from '../page_methods/commonMethods';
 import { User } from '../helpers/users';
 
 class RegisterPage {
-  url = 'https://demo.nopcommerce.com/register?returnUrl=%2F';
+  [key: string]: Selector | Function;
+  url = () => 'https://demo.nopcommerce.com/register?returnUrl=%2F';
   header = Selector('h1').withExactText('Register');
   genderRadioButtons = (gender: string) => Selector(`div#gender input#gender-${gender}`);
 
@@ -16,9 +17,9 @@ class RegisterPage {
   confirmPasswordInput = Selector('#ConfirmPassword');
   inputErrorClass = (inputName: string) => Selector(`input#${inputName}.input-validation-error`);
   inputErrorText = (inputName: string) => Selector(`span[data-valmsg-for="${inputName}"]`);
-  existingEmailValidationError = Selector(
-    '.message-error.validation-summary-errors'
-  ).withText('The specified email already exists');
+  existingEmailValidationError = Selector('.message-error.validation-summary-errors').withText(
+    'The specified email already exists'
+  );
 
   newsletterChecbox = Selector('input#Newsletter');
 
@@ -33,19 +34,22 @@ class RegisterPage {
 
   setGender = async (gender: string) => await t.click(this.genderRadioButtons(gender));
 
+  setFirstName = async (firstName: string) => await t.typeText(this.firstNameInput, firstName, { paste: true });
+
+  setLastName = async (lastName: string) => await t.typeText(this.lastNameInput, lastName, { paste: true });
+
   setUserFullName = async (firstName: string, lastName: string) => {
-    await t
-      .typeText(this.firstNameInput, firstName, { paste: true })
-      .typeText(this.lastNameInput, lastName, { paste: true });
+    await this.setFirstName(firstName);
+    await this.setLastName(lastName);
   };
 
-  setDateOfBirth = async ({ day, month, year }: { day: string, month: string, year: string }) => {
+  setDateOfBirth = async ({ day, month, year }: { day: string; month: string; year: string }) => {
     selectOption(t, this.selectBDayDay, day);
     selectOption(t, this.selectBDayMonth, month);
     selectOption(t, this.selectBDayYear, year);
   };
 
-  setUserEmail = async (email: string) => {
+  setEmail = async (email: string) => {
     const randomPrefix = faker.string.alpha(10);
     const randomizedEmail = randomPrefix + '_' + email;
     await t
@@ -58,8 +62,7 @@ class RegisterPage {
     return randomizedEmail;
   };
 
-  setCompanyName = async (companyName: string) =>
-    await t.typeText(this.companyNameInput, companyName, { paste: true });
+  setCompanyName = async (companyName: string) => await t.typeText(this.companyNameInput, companyName, { paste: true });
 
   setPassword = async (password: string, passwordConfirmation = password) =>
     await t
@@ -69,10 +72,7 @@ class RegisterPage {
   setNewsletterCheckbox = async (state = true) => {
     const currentCheckboxState = await Selector(this.newsletterChecbox()).hasAttribute('checked');
 
-    if (
-      (state === true && currentCheckboxState === false) ||
-      (state === false && currentCheckboxState === true)
-    ) {
+    if ((state === true && currentCheckboxState === false) || (state === false && currentCheckboxState === true)) {
       await t.click(this.newsletterChecbox);
     }
   };
@@ -80,21 +80,21 @@ class RegisterPage {
   clickRegisterButton = async () => t.click(this.registerButton);
 
   createUser = async (user: User, withFullData = false) => {
-    await t.navigateTo(this.url);
+    await t.navigateTo(this.url());
 
     const credentials = { login: '', password: user.password };
 
     this.setUserFullName(user.firstName, user.lastName);
-    credentials.login = await this.setUserEmail(user.email);
+    credentials.login = await this.setEmail(user.email);
     this.setPassword(credentials.password);
-    
+
     if (withFullData) {
       this.setGender(user.gender);
       this.setDateOfBirth(user.dateOfBirth);
       this.setCompanyName(user.companyName);
     }
     this.clickRegisterButton();
-    
+
     return credentials;
   };
 }
