@@ -3,8 +3,10 @@ import CustomerInfoPage from '../pages/customerInfoPage';
 import topNavbar from '../pages/components/topNavbar';
 import { primaryUserRole, secondaryUser } from '../helpers/users';
 import { Role } from 'testcafe';
+import NotifiactionBar from '../pages/components/notifiactionBar';
 
 const registerPage = new RegisterPage();
+const notifiactionBar = new NotifiactionBar();
 let customerInfoPage: CustomerInfoPage;
 
 fixture('Created user is able to login and edit his data')
@@ -21,7 +23,7 @@ test('Change primaryUser data to secondaryUser', async t => {
 
   await customerInfoPage.fillFormWithUserData(secondaryUser);
   await t
-    .expect(customerInfoPage.successNotificationBar.exists)
+    .expect(notifiactionBar.successNotificationBar.exists)
     .ok()
     .expect(customerInfoPage.firstNameInput.value)
     .eql(secondaryUser.firstName)

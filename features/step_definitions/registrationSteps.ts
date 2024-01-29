@@ -25,10 +25,6 @@ When(/^I set Date of Birth to "(.+)" "(.+)" "(.+)"$/, async (t, [day, month, yea
   await registerPage.setDateOfBirth({ day, month, year });
 });
 
-When(/^I click the "Register" button$/, async () => {
-  await registerPage.clickRegisterButton();
-});
-
 Then('registration confirmation page is opened', async () => await t.expect(getPageUrl()).eql(registerResultPage.url));
 
 Then('a sucess message is displayed', async () => {

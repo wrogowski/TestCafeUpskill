@@ -10,6 +10,6 @@ Feature: Register client tests
     And I set Date of Birth to "5" "January" "1999"
     And I provide the "Email" field with "asd@asd.as" value
     And I provide the "Password" field with "pass123" value
-    And I click the "Register" button
+    And I click the "REGISTER" button
     Then registration confirmation page is opened
     And a sucess message is displayed

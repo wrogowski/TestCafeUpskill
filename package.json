@@ -6,11 +6,12 @@
   "license": "ISC",
   "description": "TestCafe upskill project",
   "scripts": {
-    "test:all": "npm run node_modules/.bin/gherkin-testcafe firefox -L",
-    "test": "testcafe chrome -L",
+    "test:bdd": "gherkin-testcafe -L",
+    "test": "testcafe chrome test/*.test.ts -L",
     "test:debug": "testcafe chrome -L --debug-on-fail",
     "test:percy": "percy exec -- testcafe firefox -L",
-    "test-ci": "testcafe chromium:headless, firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml --concurrency 3"
+    "test-ci": "testcafe chromium:headless, firefox:headless test/*.test.ts -r xunit:/tmp/test-results/testcafe/results.xml --concurrency 3",
+    "test:ci:bdd": "gherking-testcafe chromium:headless, firefox:headless -r xunit:/tmp/test-results/testcafe/results.xml --concurrency 3"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^10.3.1",

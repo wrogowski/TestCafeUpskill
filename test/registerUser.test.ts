@@ -113,7 +113,7 @@ test('Password minimum length validation', async t => {
     .notOk();
 });
 
-test('Empty string is not a correct password', async t => {
+test.only('Empty string is not a correct password', async t => {
   registerPage.setUserFullName(primaryUser.firstName, primaryUser.lastName);
   registerPage.setEmail(primaryUser.email);
 
@@ -164,7 +164,7 @@ test.requestHooks(logger)('User with correct data provided is created correctly'
   await t.expect(getPageUrl()).eql(homePage.url);
 });
 
-test('Email address has to be unique', async t => {
+test.only('Email address has to be unique', async t => {
   const usedEmail = await registerPage.setEmail(primaryUser.email);
 
   registerPage.setUserFullName(primaryUser.firstName, primaryUser.lastName);
